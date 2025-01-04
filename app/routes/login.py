@@ -19,7 +19,7 @@ def login():
 
     try:
         # Fetch the user based on email
-        query = "SELECT username, email, number, password, college_code, unique_token FROM faculty WHERE email = %s"
+        query = "SELECT username, email, number, password, college_code, unique_token, faculty_id FROM faculty WHERE email = %s"
         cursor.execute(query, (email,))
         user = cursor.fetchone()
 
@@ -30,20 +30,21 @@ def login():
             if bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8')):
                 return jsonify({
                     "message": "Login successful",
-                    "user": {
+                    "data": {
                         "username": user[0],
                         "email": user[1],
                         "number": user[2],
                         "college_code": user[4],
-                        "unique_token": user[5]
+                        "unique_token": user[5],
+                        "faculty_id": user[6]
                     }
                 }), 200
             else:
-                return jsonify({"error": "Invalid password"}), 401
+                return jsonify({"message": "Invalid password"}), 401
         else:
-            return jsonify({"error": "Invalid email"}), 401
+            return jsonify({"message": "Invalid email"}), 401
     except Exception as e:
-        return jsonify({"error": "Internal server error", "details": str(e)}), 500
+        return jsonify({"message": "Internal server error", "details": str(e)}), 500
     finally:
         cursor.close()
         conn.close()
