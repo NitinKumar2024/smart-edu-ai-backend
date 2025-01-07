@@ -3,3 +3,6 @@ pymysql
 gunicorn
 bcrypt
 requests
+google-generativeai
+flask-cors
+fpdf
