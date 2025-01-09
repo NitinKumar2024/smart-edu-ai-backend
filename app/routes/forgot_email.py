@@ -57,14 +57,14 @@ def forgot_email():
         conn.commit()
 
         # Generate the reset link
-        reset_link = f"https://turbocampuspro.com/auth/reset_password.php?token={token}&email={email}&role={role}"
+        reset_link = f"https://helper-smartedu.turbocampuspro.com/auth/reset_password.php?token={token}&email={email}&role={role}"
 
         # Send the reset link via an external email API
         email_data = {
             'to': email,
             'resetLink': reset_link
         }
-        email_api_url = 'https://viddoer.com/Inside%20Mark/diploma/email.php'
+        email_api_url = 'https://service.insidemark.in/smartedu/forgot_email.php'
         response = requests.post(email_api_url, data=email_data)
 
         if response.status_code != 200:
