@@ -113,8 +113,18 @@ def generate_notes():
             cursor.close()
             conn.close()
 
-        # Prompt generation with focused context
-        message = f"Generate detailed, focused notes on the topic '{topic_name}', which is part of the chapter '{chapter_name}' under the subject '{subject_name}'. Please provide clear, concise, and accurate content relevant to the topic. Avoid unnecessary generalizations and also remember just you write only notes do not write okan here is notes explanation just write notes."
+        # Prompt generation with easy explanations and enriched content
+        message = f"""Generate clear, detailed, and focused notes on the topic '{topic_name}', which is part of the chapter '{chapter_name}' under the subject '{subject_name}'. 
+
+        Requirements:
+        1. Use simple, easy-to-understand language suitable for learners at any level. 
+        2. Include relevant examples to illustrate key points clearly.
+        3. Provide tables for comparisons, categorizations, or organized information where appropriate.
+        4. If needed, Add textual diagrams (such as step-by-step processes or hierarchical structures) to enhance understanding.
+        5. If needed, break down complex concepts into smaller, digestible parts with bullet points or numbered lists.
+        6. Avoid phrases like "here is the explanation"; directly provide the notes.
+
+        Your goal is to create engaging, learner-friendly notes that cover the topic comprehensively and efficiently. and do not write anything instead of notes"""
 
         def generate():
             try:
