@@ -2,6 +2,7 @@ import markdown
 from flask import Blueprint, jsonify
 
 from app.models.db import get_db_connection
+from app.utils.md_parser import MarkdownConverter
 
 notes_bp = Blueprint('notes', __name__)
 
@@ -32,28 +33,15 @@ def enhance_ascii_art(content):
 
 def process_markdown(content):
     """Process markdown with enhanced formatting"""
-    # First enhance ASCII art
-    content = enhance_ascii_art(content)
-
-    # Configure markdown extensions
-    md = markdown.Markdown(extensions=[
-        'extra',  # Includes tables, footnotes, and more
-        'codehilite',  # Syntax highlighting for code blocks
-        'fenced_code',  # Fenced code blocks
-        'tables',  # Enhanced table support
-        'attr_list',  # Attribute lists
-        'def_list',  # Definition lists
-        'nl2br',  # New line to break conversion
-    ])
+    converter = MarkdownConverter()
 
     # Convert to HTML
-    html_content = md.convert(content)
+    html = converter.convert(content)
 
-    # Add custom CSS classes
-    html_content = html_content.replace('<table>', '<table class="md-table">')
-    html_content = html_content.replace('<code>', '<code class="md-code">')
+    # Get CSS for syntax highlighting
+    css = converter.get_css()
 
-    return html_content
+    return html
 
 
 @notes_bp.route('/api/notes/content/<int:topic_id>', methods=['GET'])
@@ -123,7 +111,7 @@ def get_notes_content(topic_id):
             'status': 'success',
             'data': {
                 'content_id': content_id,
-                'content': md_content
+                'content': html_content
 
             }
         }), 200

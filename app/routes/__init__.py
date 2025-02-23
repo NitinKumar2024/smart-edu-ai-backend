@@ -9,6 +9,7 @@ def init_routes(app):
     from app.routes.attendance.export_attendance_pdf import attendance_report
     from app.routes.students_routes.allsubject import subjects_bp
     from app.routes.students_routes.notes_study import notes_bp
+    from app.routes.students_routes.attendance_details import attendance_bp
 
     app.register_blueprint(login_bp)
     app.register_blueprint(forgot_email_bp)
@@ -20,3 +21,4 @@ def init_routes(app):
     app.register_blueprint(attendance_report)
     app.register_blueprint(subjects_bp)
     app.register_blueprint(notes_bp)
+    app.register_blueprint(attendance_bp)

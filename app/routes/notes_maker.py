@@ -14,7 +14,7 @@ CORS(notes_maker_bp)  # Enable CORS for all routes
 
 genai.configure(api_key=api_key)
 # Initialize model
-model = genai.GenerativeModel('gemini-2.0-flash-exp')
+model = genai.GenerativeModel('gemini-2.0-flash')
 
 def check_existing_notes(topic_id):
     """
@@ -120,8 +120,8 @@ def generate_notes():
         1. Use simple, easy-to-understand language suitable for learners at any level. 
         2. Include relevant examples to illustrate key points clearly.
         3. Provide tables for comparisons, categorizations, or organized information where appropriate.
-        4. If needed, Add textual diagrams (such as step-by-step processes or hierarchical structures) to enhance understanding.
-        5. If needed, break down complex concepts into smaller, digestible parts with bullet points or numbered lists.
+        4. If needed only, Add textual diagrams (such as step-by-step processes or hierarchical structures) to enhance understanding.
+        5. Break down complex concepts into smaller, digestible parts with bullet points or numbered lists.
         6. Avoid phrases like "here is the explanation"; directly provide the notes.
 
         Your goal is to create engaging, learner-friendly notes that cover the topic comprehensively and efficiently. and do not write anything instead of notes"""

@@ -8,3 +8,5 @@ flask-cors
 fpdf
 reportlab
 markdown
+pygments
+pymdown-extensions

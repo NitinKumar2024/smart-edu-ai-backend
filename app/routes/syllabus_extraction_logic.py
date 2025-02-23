@@ -4,7 +4,7 @@ import os
 import time
 
 import google.generativeai as genai
-from flask import request, jsonify, Blueprint
+from flask import request, jsonify, Blueprint, render_template
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 
@@ -259,7 +259,12 @@ def save_syllabus_endpoint():
         else:
             return jsonify({'error': 'Failed to save syllabus'}), 500
 
+
+
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
 
+@syllabus_extraction.route('/', methods=['GET'])
+def home():
+    return render_template("index.html")
